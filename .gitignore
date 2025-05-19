@@ -1,0 +1,61 @@
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+
+# Xcode Archives
+*.xcarchive
+
+# Swift Package Manager
+/.build/
+/.swiftpm/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# CoreML compiled models
+*.mlmodelc
+
+# SwiftData persistent stores
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# User-specific settings
+*.swiftsourceinfo
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace
+
+# Asset Catalog analysis files
+*.xcresult
+
+# Logs
+*.log
+
+# Archive output
+*.ipa
+
+# Generated API docs
+docs/
+
+# Bundle settings
+*.mobileprovision
+*.entitlements
+
+# Certificates
+*.cer
+*.p12
