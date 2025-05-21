@@ -12,7 +12,20 @@ import SwiftData
 struct SoundSleepStudioApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house.fill")
+                    }
+                    .tag(0)
+                
+                ContentView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gear.circle.fill")
+                    }
+                    .tag(1)
+            }
+            .accentColor(.blue)
         }
     }
 }
