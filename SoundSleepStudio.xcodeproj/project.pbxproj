@@ -10,9 +10,22 @@
 		FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundSleepStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FEA452A52DDC227B00E8B053 /* Exceptions for "SoundSleepStudio" folder in "SoundSleepStudio" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FEA452A52DDC227B00E8B053 /* Exceptions for "SoundSleepStudio" folder in "SoundSleepStudio" target */,
+			);
 			path = SoundSleepStudio;
 			sourceTree = "<group>";
 		};
@@ -257,6 +270,7 @@
 				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoundSleepStudio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -287,6 +301,7 @@
 				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoundSleepStudio/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
