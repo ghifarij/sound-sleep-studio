@@ -1,9 +1,10 @@
 //
-//  Onboard2View.swift
+//  OnboardingView.swift
 //  SoundSleepStudio
 //
-//  Created by Wentao Guo on 21/05/25.
+//  Created by Kelvin on 21/05/25.
 //
+
 
 import RealityKit
 import SwiftUI
@@ -59,21 +60,21 @@ struct Onboard2View: View {
                 // Handle navigation or dismiss here
             }) {
                 Text("Continue")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.purple)
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
-                    .cornerRadius(12)
-                    .padding(.horizontal, 24)
-            }.padding(.horizontal, 40)
-                .padding(.bottom, 40)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 18)
+            }
+            .background(Color.brandPurple)
+            .cornerRadius(16)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 40)
         }
-                .background(Color.black.edgesIgnoringSafeArea(.all))
+        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
+    
     // MARK: - Rotate the model continuously
     func startRotation() {
-
         Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
             guard let entity = self.entity else { return }
             let angle = Float(0.01)
