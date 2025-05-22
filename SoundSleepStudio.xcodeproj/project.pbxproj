@@ -10,22 +10,9 @@
 		FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundSleepStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FED152622DDEB6A4009B736E /* Exceptions for "SoundSleepStudio" folder in "SoundSleepStudio" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				FED152622DDEB6A4009B736E /* Exceptions for "SoundSleepStudio" folder in "SoundSleepStudio" target */,
-			);
 			path = SoundSleepStudio;
 			sourceTree = "<group>";
 		};
