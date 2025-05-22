@@ -10,9 +10,22 @@
 		FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundSleepStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FED152622DDEB6A4009B736E /* Exceptions for "SoundSleepStudio" folder in "SoundSleepStudio" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FED152622DDEB6A4009B736E /* Exceptions for "SoundSleepStudio" folder in "SoundSleepStudio" target */,
+			);
 			path = SoundSleepStudio;
 			sourceTree = "<group>";
 		};
@@ -254,7 +267,7 @@
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
@@ -269,7 +282,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = name.afgaghifari.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -286,7 +299,7 @@
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
@@ -301,7 +314,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = name.afgaghifari.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
