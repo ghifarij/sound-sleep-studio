@@ -17,56 +17,7 @@ struct ECGWaveform: Shape {
         let height = rect.height
         if isFlat {
             path.move(to: CGPoint(x: 0, y: height/2))
-            path.addLine(to: CGPoint(x: widt// ... existing code ...
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 32) {
-                    Text("Sound Sleep")
-                        .font(.largeTitle)
-                        .fontWeight(.semibold)
-                        .accessibilityAddTraits(.isHeader)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 24)
-                        .padding(.horizontal)
-                    
-                    // Always show heart rate section
-                    heartRateSection
-                }
-                .padding(.bottom, 24)
-            }
-            .background(Color(.systemGroupedBackground).ignoresSafeArea())
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                startECGAnimation()
-                // Force refresh heart rate data when view appears
-                healthKitService.refresh()
-            }
-            .onChange(of: scenePhase) { oldPhase, newPhase in
-                switch newPhase {
-                case .active:
-                    // When app becomes active, refresh heart rate data
-                    healthKitService.refresh()
-                    if ecgTimer == nil {
-                        startECGAnimation()
-                    }
-                case .inactive:
-                    // No action needed
-                    break
-                case .background:
-                    // Stop ECG animation in background
-                    stopECGAnimation()
-                @unknown default:
-                    break
-                }
-            }
-            .onDisappear {
-                // Don't stop ECG animation when navigating within app
-            }
-        }
-    }
-// ... existing code ...h, y: height/2))
+            path.addLine(to: CGPoint(x: width, y: height/2))
             return path
         }
 
@@ -157,7 +108,7 @@ struct HomeView: View {
             .onChange(of: scenePhase) { oldPhase, newPhase in
                 switch newPhase {
                 case .active:
-                    // When app becomes active, refresh heart rate data
+                    // When app becomes active, refresh heart rate data and ensure ECG animation is running
                     healthKitService.refresh()
                     if ecgTimer == nil {
                         startECGAnimation()

@@ -8,7 +8,6 @@ class HealthKitService: ObservableObject {
     private var updateTimer: Timer?
     
     @Published var currentHeartRate: Double = 0
-    @Published var isAuthorized: Bool = false
     
     // For preview mode
     var isPreviewMode: Bool = false
@@ -20,13 +19,15 @@ class HealthKitService: ObservableObject {
         
         if previewMode {
             self.currentHeartRate = previewHeartRate
-            self.isAuthorized = true
         } else {
+            // Request authorization once at startup - no need to check result
+            requestInitialAuthorization()
+            
             // Set up automatic refresh
             setupAutomaticRefresh()
             
-            // Check authorization on init
-            checkAuthorizationStatus()
+            // Fetch data immediately
+            fetchLatestHeartRate()
         }
     }
     
@@ -36,71 +37,20 @@ class HealthKitService: ObservableObject {
     }
     
     // MARK: - Public Methods
-    func requestAuthorization() {
-        if isPreviewMode { return }
-        
+    private func requestInitialAuthorization() {
+        // One-time authorization request - no need to check result
         let typesToRead: Set<HKObjectType> = [heartRateType]
-        
-        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { [weak self] success, error in
+        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { [weak self] _, _ in
+            // Fetch data regardless of authorization result
             DispatchQueue.main.async {
-                if success {
-                    self?.isAuthorized = true
-                    // Immediately fetch heart rate after authorization
-                    self?.fetchLatestHeartRate()
-                } else {
-                    self?.isAuthorized = false
-                    if let error = error {
-                        print("HealthKit authorization failed: \(error.localizedDescription)")
-                    }
-                }
-            }
-        }
-    }
-    
-    func checkAuthorizationStatus() {
-        if isPreviewMode { return }
-        
-        let status = healthStore.authorizationStatus(for: heartRateType)
-        
-        DispatchQueue.main.async {
-            switch status {
-            case .notDetermined:
-                // If not determined, request authorization
-                self.requestAuthorization()
-                
-            case .sharingAuthorized:
-                self.isAuthorized = true
-                // Immediately fetch heart rate data
-                self.fetchLatestHeartRate()
-                
-            case .sharingDenied:
-                self.isAuthorized = false
-                self.currentHeartRate = 0
-                
-            @unknown default:
-                self.isAuthorized = false
-                self.currentHeartRate = 0
+                self?.fetchLatestHeartRate()
             }
         }
     }
     
     func refresh() {
         if isPreviewMode { return }
-        
-        // Always check authorization status first
-        let status = healthStore.authorizationStatus(for: heartRateType)
-        
-        switch status {
-        case .sharingAuthorized:
-            fetchLatestHeartRate()
-        case .notDetermined:
-            requestAuthorization()
-        case .sharingDenied, _:
-            DispatchQueue.main.async {
-                self.isAuthorized = false
-                self.currentHeartRate = 0
-            }
-        }
+        fetchLatestHeartRate()
     }
     
     // MARK: - Private Methods
@@ -114,16 +64,11 @@ class HealthKitService: ObservableObject {
     private func fetchLatestHeartRate() {
         if isPreviewMode { return }
         
-        // Skip if not authorized
-        guard healthStore.authorizationStatus(for: heartRateType) == .sharingAuthorized else {
-            return
-        }
-        
-        // Create query for latest heart rate over past hour
+        // Create query for latest heart rate over past 6 hours
         let calendar = Calendar.current
-        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: Date()) ?? Date()
+        let hoursAgo = calendar.date(byAdding: .hour, value: -6, to: Date()) ?? Date()
         let predicate = HKQuery.predicateForSamples(
-            withStart: hourAgo,
+            withStart: hoursAgo,
             end: Date(),
             options: .strictEndDate
         )
@@ -134,22 +79,16 @@ class HealthKitService: ObservableObject {
         let query = HKSampleQuery(
             sampleType: heartRateType,
             predicate: predicate,
-            limit: 5,  // Get the 5 most recent samples
+            limit: 10,  // Get the 10 most recent samples
             sortDescriptors: [sortDescriptor]
-        ) { [weak self] (_, samples, error) in
+        ) { [weak self] (_, samples, _) in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
-                // Handle errors
-                if let error = error {
-                    print("Error fetching heart rate: \(error.localizedDescription)")
-                    return
-                }
-                
-                // Get most recent value
+                // Get most recent value if available
                 guard let samples = samples,
                       let mostRecentSample = samples.first as? HKQuantitySample else {
-                    // No samples found - this is normal if no recent heart rate data exists
+                    // No samples found - heart rate stays at default (0)
                     return
                 }
                 
@@ -162,7 +101,7 @@ class HealthKitService: ObservableObject {
             }
         }
         
-        // Execute the query
+        // Execute the query - if this fails, heart rate will just stay at 0
         healthStore.execute(query)
     }
 }
