@@ -28,10 +28,3 @@ Turns your live pulse into a slowly-sliding pad, helps you drift from daytime al
 * **Fastlane + TestFlight**         CI & beta delivery  
 
 ---
-
-## 🏗 Quick start
-
-```bash
-git clone https://github.com/your-org/SoundSleepStudio.git
-cd SoundSleepStudio
-open SoundSleepStudio.xcodeproj   # or .xcworkspace if you add packages
