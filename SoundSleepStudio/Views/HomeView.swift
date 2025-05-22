@@ -17,7 +17,56 @@ struct ECGWaveform: Shape {
         let height = rect.height
         if isFlat {
             path.move(to: CGPoint(x: 0, y: height/2))
-            path.addLine(to: CGPoint(x: width, y: height/2))
+            path.addLine(to: CGPoint(x: widt// ... existing code ...
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 32) {
+                    Text("Sound Sleep")
+                        .font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .accessibilityAddTraits(.isHeader)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 24)
+                        .padding(.horizontal)
+                    
+                    // Always show heart rate section
+                    heartRateSection
+                }
+                .padding(.bottom, 24)
+            }
+            .background(Color(.systemGroupedBackground).ignoresSafeArea())
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                startECGAnimation()
+                // Force refresh heart rate data when view appears
+                healthKitService.refresh()
+            }
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                switch newPhase {
+                case .active:
+                    // When app becomes active, refresh heart rate data
+                    healthKitService.refresh()
+                    if ecgTimer == nil {
+                        startECGAnimation()
+                    }
+                case .inactive:
+                    // No action needed
+                    break
+                case .background:
+                    // Stop ECG animation in background
+                    stopECGAnimation()
+                @unknown default:
+                    break
+                }
+            }
+            .onDisappear {
+                // Don't stop ECG animation when navigating within app
+            }
+        }
+    }
+// ... existing code ...h, y: height/2))
             return path
         }
 
@@ -56,9 +105,22 @@ struct ECGWaveform: Shape {
 }
 
 struct HomeView: View {
-    @StateObject private var healthKitService = HealthKitService()
+    @StateObject private var healthKitService: HealthKitService
     @State private var progress: CGFloat = 0
-    @State private var timer: Timer? = nil
+    @State private var ecgTimer: Timer? = nil
+    // --- Timer & Sound Picker State ---
+    @State private var countDownTimer: Timer? = nil
+    @State private var selectedSound: String = "Wave"
+    @State private var isTimerRunning: Bool = false
+    @State private var remainingSeconds: Int = 15 * 60 // 15 minutes default
+    @State private var userSetSeconds: Int = 15 * 60 // For future: allow user to set
+    let soundOptions = ["Wave", "Forest", "Night", "Rain"]
+    // -------------------------------
+
+    // Initialize with default HealthKitService for real device
+    init(healthKitService: HealthKitService = HealthKitService()) {
+        _healthKitService = StateObject(wrappedValue: healthKitService)
+    }
 
     private var ecgAmplitude: CGFloat {
         healthKitService.currentHeartRate == 0 ? 0 : CGFloat( (Double(healthKitService.currentHeartRate) - 40) / 180 * 1.8 ).clamped(to: 0...1.5)
@@ -66,6 +128,7 @@ struct HomeView: View {
 
     private var scrollDuration: Double { 3.0 }
     @Environment(\.scenePhase) private var scenePhase
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -78,18 +141,8 @@ struct HomeView: View {
                         .padding(.top, 24)
                         .padding(.horizontal)
                     
-                    // Conditional content based on authorization status
-                    if healthKitService.initialAuthCheckComplete {
-                        if healthKitService.isAuthorized {
-                            heartRateSection
-                        } else {
-                            authorizationSection // This section will now only have the "Open Health App" button
-                        }
-                    } else {
-                        // Show a loading indicator or an empty view while waiting for authorization
-                        ProgressView("Checking Health Access...")
-                            .padding()
-                    }
+                    // Always show heart rate section
+                    heartRateSection
                 }
                 .padding(.bottom, 24)
             }
@@ -97,33 +150,36 @@ struct HomeView: View {
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                // checkAuthorizationStatus is called in HealthKitService init
-                // and also when scene becomes active
                 startECGAnimation()
+                // Force refresh heart rate data when view appears
+                healthKitService.refresh()
             }
-            .onChange(of: scenePhase) {
-                if scenePhase == .active {
-                    healthKitService.checkAuthorizationStatus()
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                switch newPhase {
+                case .active:
+                    // When app becomes active, refresh heart rate data
+                    healthKitService.refresh()
+                    if ecgTimer == nil {
+                        startECGAnimation()
+                    }
+                case .inactive:
+                    // No action needed
+                    break
+                case .background:
+                    // Stop ECG animation in background
+                    stopECGAnimation()
+                @unknown default:
+                    break
                 }
             }
             .onDisappear {
-                stopECGAnimation()
+                // Don't stop ECG animation when navigating within app
             }
         }
     }
+    
     private var heartRateSection: some View {
         VStack(spacing: 24) {
-            ZStack {
-                ECGWaveform(progress: progress, amplitude: ecgAmplitude, isFlat: healthKitService.currentHeartRate == 0)
-                    .stroke(Color.red, lineWidth: 3)
-                    .frame(height: 80)
-                    .padding(.horizontal, 8)
-                    .clipped()
-                    .accessibilityHidden(true)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.top, 8)
-            
             HStack(alignment: .firstTextBaseline, spacing: 8) {
                 Text("\(Int(healthKitService.currentHeartRate))")
                     .font(.system(size: 64, weight: .bold, design: .rounded))
@@ -137,23 +193,52 @@ struct HomeView: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
             
-            Text("Last updated: \(Date().formatted(date: .abbreviated, time: .shortened))")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .accessibilityLabel("Last updated \(Date().formatted(date: .abbreviated, time: .shortened))")
-                .frame(maxWidth: .infinity, alignment: .center)
-            
-            Button(action: {
-                healthKitService.fetchLatestHeartRate()
-                restartECGAnimation()
-            }) {
-                Text("Refresh")
-                    .font(.body)
-                    .frame(maxWidth: .infinity)
+            ZStack {
+                ECGWaveform(progress: progress, amplitude: ecgAmplitude, isFlat: healthKitService.currentHeartRate == 0)
+                    .stroke(Color.red, lineWidth: 3)
+                    .frame(height: 180)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 32)
+                    .clipped()
+                    .accessibilityHidden(true)
             }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            .accessibilityHint("Fetch the latest heart rate data and animate the ECG")
+            .frame(maxWidth: .infinity)
+            .padding(.bottom, 8)
+            
+            // --- Timer & Sound Picker UI ---
+            VStack(spacing: 16) {
+                // Timer Display
+                Text(timerString(from: remainingSeconds))
+                    .font(.system(size: 36, weight: .medium, design: .monospaced))
+                    .frame(maxWidth: .infinity)
+                    .accessibilityLabel("Timer: \(timerString(from: remainingSeconds))")
+                // Sound Picker
+                Picker("Sound", selection: $selectedSound) {
+                    ForEach(soundOptions, id: \ .self) { sound in
+                        Text(sound)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .frame(maxWidth: .infinity)
+                .disabled(isTimerRunning)
+                .accessibilityLabel("Choose sound")
+                // Start Button
+                Button(action: {
+                    startTimer()
+                }) {
+                    Text(isTimerRunning ? "Running..." : "Start")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(isTimerRunning ? Color(.systemGray4) : Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .disabled(isTimerRunning)
+                .accessibilityLabel(isTimerRunning ? "Timer running" : "Start timer")
+            }
+            .padding(.top, 8)
+            // --- End Timer & Sound Picker UI ---
         }
         .padding()
         .background(
@@ -165,65 +250,66 @@ struct HomeView: View {
     }
     private func startECGAnimation() {
         stopECGAnimation()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
-            let increment = CGFloat(0.016 / scrollDuration)
-            progress += increment
-            if progress > 1 { progress -= 1 }
+        ecgTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
+            let increment = CGFloat(0.016 / self.scrollDuration)
+            self.progress += increment
+            if self.progress > 1 { self.progress -= 1 }
         }
     }
     private func stopECGAnimation() {
-        timer?.invalidate()
-        timer = nil
+        ecgTimer?.invalidate()
+        ecgTimer = nil
     }
     private func restartECGAnimation() {
         stopECGAnimation()
         startECGAnimation()
     }
-    
-    private var authorizationSection: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "heart.text.square")
-                .font(.system(size: 60))
-                .foregroundColor(.red)
-                .accessibilityHidden(true)
-            
-            Text("Health Data Access Required")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
-                .accessibilityAddTraits(.isHeader)
-            
-            Text("Please grant access to your health data to view your heart rate information.")
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-                .font(.body)
-                .padding(.horizontal)
-            
-            Button(action: {
-                if let url = URL(string: "x-apple-health://") {
-                    UIApplication.shared.open(url)
-                }
-            }) {
-                Label("Open Health App", systemImage: "arrow.up.right.square") // Changed from "Grant Access"
-                    .font(.body)
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent) // Changed to prominent for the single primary action
-            .controlSize(.large)
-            .accessibilityHint("Open the Health app to manage permissions")
+    // --- Timer Helper Functions ---
+    private func timerString(from seconds: Int) -> String {
+        let h = seconds / 3600
+        let m = (seconds % 3600) / 60
+        let s = seconds % 60
+        if h > 0 {
+            return String(format: "%02d : %02d : %02d", h, m, s)
+        } else {
+            return String(format: "%02d : %02d", m, s)
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color(.secondarySystemGroupedBackground))
-        )
-        .padding(.horizontal)
-        .accessibilityElement(children: .contain)
+    }
+    private func startTimer() {
+        remainingSeconds = userSetSeconds // Always reset to default (15 min)
+        isTimerRunning = true
+        countDownTimer?.invalidate()
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if self.remainingSeconds > 0 {
+                self.remainingSeconds -= 1
+            } else {
+                self.countDownTimer?.invalidate()
+                self.countDownTimer = nil
+                self.isTimerRunning = false
+            }
+        }
     }
 }
 
-#Preview {
+
+#Preview("Default") {
     HomeView()
+}
+
+#Preview("60 BPM") {
+    HomeView(healthKitService: .preview60BPM)
+}
+
+#Preview("80 BPM") {
+    HomeView(healthKitService: .preview80BPM)
+}
+
+#Preview("100 BPM") {
+    HomeView(healthKitService: .preview100BPM)
+}
+
+#Preview("120 BPM") {
+    HomeView(healthKitService: .preview120BPM)
 }
 
 extension Comparable {
