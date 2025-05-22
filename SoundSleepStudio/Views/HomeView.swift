@@ -64,7 +64,8 @@ struct HomeView: View {
     @State private var selectedSound: String = "Wave"
     @State private var isTimerRunning: Bool = false
     @State private var remainingSeconds: Int = 15 * 60 // 15 minutes default
-    @State private var userSetSeconds: Int = 15 * 60 // For future: allow user to set
+    @State private var userSetMinutes: Int = 15 // Default 15 minutes
+    @State private var isEditingTimer: Bool = false
     let soundOptions = ["Wave", "Forest", "Night", "Rain"]
     // -------------------------------
 
@@ -130,7 +131,7 @@ struct HomeView: View {
     }
     
     private var heartRateSection: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
                 Text("\(Int(healthKitService.currentHeartRate))")
                     .font(.system(size: 64, weight: .bold, design: .rounded))
@@ -154,15 +155,65 @@ struct HomeView: View {
                     .accessibilityHidden(true)
             }
             .frame(maxWidth: .infinity)
-            .padding(.bottom, 8)
             
             // --- Timer & Sound Picker UI ---
             VStack(spacing: 16) {
-                // Timer Display
-                Text(timerString(from: remainingSeconds))
-                    .font(.system(size: 36, weight: .medium, design: .monospaced))
-                    .frame(maxWidth: .infinity)
-                    .accessibilityLabel("Timer: \(timerString(from: remainingSeconds))")
+                // Timer Display - Tappable to edit
+                VStack(spacing: 4) {
+                    if isEditingTimer && !isTimerRunning {
+                        HStack {
+                            TextField("Minutes", value: $userSetMinutes, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.center)
+                                .font(.system(size: 36, weight: .medium))
+                                .padding(8)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(8)
+                                .onChange(of: userSetMinutes) { _, newValue in
+                                    remainingSeconds = newValue * 60
+                                }
+                            
+                            Text("min")
+                                .font(.title2)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(width: 150)
+                        
+                        Button("Done") {
+                            isEditingTimer = false
+                            // Ensure minimum value
+                            if userSetMinutes < 1 {
+                                userSetMinutes = 1
+                            }
+                            remainingSeconds = userSetMinutes * 60
+                        }
+                        .padding(.top, 4)
+                    } else {
+                        // Display timer and make it tappable
+                        Text(timerString(from: remainingSeconds))
+                            .font(.system(size: 36, weight: .medium, design: .monospaced))
+                            .frame(maxWidth: .infinity)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if !isTimerRunning {
+                                    isEditingTimer = true
+                                }
+                            }
+                            .accessibilityLabel("Timer: \(timerString(from: remainingSeconds)). Tap to edit.")
+                        
+                        if !isTimerRunning {
+                            Text("Tap to edit")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        } else {
+                            // Add an empty text with the same font to maintain consistent spacing
+                            Text(" ")
+                                .font(.caption)
+                                .foregroundColor(.clear)
+                        }
+                    }
+                }
+                
                 // Sound Picker
                 Picker("Sound", selection: $selectedSound) {
                     ForEach(soundOptions, id: \ .self) { sound in
@@ -173,20 +224,24 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity)
                 .disabled(isTimerRunning)
                 .accessibilityLabel("Choose sound")
-                // Start Button
+                
+                // Start/Stop Button
                 Button(action: {
-                    startTimer()
+                    if isTimerRunning {
+                        stopTimer()
+                    } else {
+                        startTimer()
+                    }
                 }) {
-                    Text(isTimerRunning ? "Running..." : "Start")
+                    Text(isTimerRunning ? "Stop" : "Start")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(isTimerRunning ? Color(.systemGray4) : Color.blue)
+                        .background(isTimerRunning ? Color.red : Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                .disabled(isTimerRunning)
-                .accessibilityLabel(isTimerRunning ? "Timer running" : "Start timer")
+                .accessibilityLabel(isTimerRunning ? "Stop timer" : "Start timer")
             }
             .padding(.top, 8)
             // --- End Timer & Sound Picker UI ---
@@ -226,19 +281,27 @@ struct HomeView: View {
             return String(format: "%02d : %02d", m, s)
         }
     }
+    
     private func startTimer() {
-        remainingSeconds = userSetSeconds // Always reset to default (15 min)
+        isEditingTimer = false
+        remainingSeconds = userSetMinutes * 60
         isTimerRunning = true
         countDownTimer?.invalidate()
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if self.remainingSeconds > 0 {
                 self.remainingSeconds -= 1
             } else {
-                self.countDownTimer?.invalidate()
-                self.countDownTimer = nil
-                self.isTimerRunning = false
+                self.stopTimer()
             }
         }
+    }
+    
+    private func stopTimer() {
+        countDownTimer?.invalidate()
+        countDownTimer = nil
+        isTimerRunning = false
+        // Reset the remaining seconds to the original value
+        remainingSeconds = userSetMinutes * 60
     }
 }
 
