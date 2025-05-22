@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
-import SwiftData
 
 @main
 struct SoundSleepStudioApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            OnboardingView {
+                // Handle Continue tap here:
+                // e.g. set @AppStorage flag or navigate to your main UI
+                print("Continue tapped")
+            }
+            // Force dark mode to validate design
+            .environment(\.colorScheme, .dark)
         }
     }
 }
