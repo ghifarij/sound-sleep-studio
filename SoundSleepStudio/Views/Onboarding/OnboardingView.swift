@@ -30,7 +30,8 @@ struct OnboardingView: View {
 
     var body: some View {
         ZStack {
-            Color.onboardingBg
+            // Replace custom background color with system color
+            Color(.systemBackground)
                 .ignoresSafeArea(.all)
 
             VStack(spacing: 0) {
@@ -38,7 +39,7 @@ struct OnboardingView: View {
                     .frame(height: 100)
 
                 // Cloud moon image
-                Image("cloud_moon")
+                Image("Cloud_Moon")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 160)
@@ -50,11 +51,11 @@ struct OnboardingView: View {
                 VStack(spacing: 8) {
                     Text("Welcome to")
                         .font(.system(size: 32, weight: .medium))
-                        .foregroundColor(.textPrimary)
+                        .foregroundColor(.primary) // Ensure using .primary
                     
                     Text("Sound Sleep")
                         .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(.textPrimary)
+                        .foregroundColor(.primary) // Ensure using .primary
                 }
                 .multilineTextAlignment(.center)
 
@@ -79,15 +80,15 @@ struct OnboardingView: View {
 
                 Spacer()
 
-                // Continue button
+                // Continue button - keep the brand purple color
                 Button(action: onContinue) {
                     Text("Continue")
                         .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.white)
+                        .foregroundColor(.white) // This is fine as button text on colored background
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 18)
                 }
-                .background(Color.brandPurple)
+                .background(Color.brandPurple) // Keep this as is
                 .cornerRadius(16)
                 .padding(.horizontal, 24)
                 .padding(.bottom, bottomInset > 0 ? bottomInset + 16 : 32)
@@ -96,12 +97,9 @@ struct OnboardingView: View {
     }
 }
 
-#if DEBUG
-struct OnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView { }
-            .previewDevice("iPhone 14 Pro")
-            .preferredColorScheme(.dark)
-    }
+#Preview {
+    OnboardingView()
 }
-#endif
+
+// Remove the duplicate FeatureRow struct declaration below
+// struct FeatureRow: View { ... }

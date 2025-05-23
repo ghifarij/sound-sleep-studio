@@ -18,18 +18,18 @@ struct FeatureRow: View {
         HStack(alignment: .top, spacing: 16) {
             Image(systemName: systemIconName)
                 .font(.system(size: 24, weight: .medium))
-                .foregroundColor(.brandPurple)
+                .foregroundColor(.brandPurple) // Keep brand color for icon
                 .frame(width: 30, height: 30)
                 .padding(.top, 2)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.textPrimary)
+                    .foregroundColor(.primary) // Change to .primary for automatic light/dark adaptation
 
                 Text(description)
                     .font(.system(size: 15))
-                    .foregroundColor(.textSecondary)
+                    .foregroundColor(.secondary) // Change to .secondary for automatic light/dark adaptation
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
             }

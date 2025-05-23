@@ -21,12 +21,12 @@ struct AnalyticsView: View {
             Text("Analytics")
                 .font(.largeTitle)
                 .bold()
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
 
             Text("Heart Rate Logs")
                 .font(.title3)
                 .bold()
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
 
             // Picker for Range
             Picker("Range", selection: $selectedRange) {
@@ -39,14 +39,14 @@ struct AnalyticsView: View {
             // Range info
             Text("RANGE")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
 
             HStack {
                 Text("60–78")
                     .font(.title)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 Text("BPM")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                     .font(.title3)
             }
 
@@ -78,14 +78,14 @@ struct AnalyticsView: View {
                     "You reach your resting heart rate at 01:34 AM, your body finally slowed down."
                 )
                 .font(.footnote)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
             }
             .padding()
             .background(Color(.darkGray).opacity(0.6))
             .cornerRadius(12)
         }
         .padding()
-        .background(Color.black)
+    
         .preferredColorScheme(.dark)
 
     }
