@@ -80,13 +80,13 @@ struct AnalyticsView: View {
                 .font(.footnote)
                 .foregroundColor(.primary)
             }
+            .frame(maxWidth: .infinity)
             .padding()
             .background(Color(.darkGray).opacity(0.6))
             .cornerRadius(12)
         }
         .padding()
-    
-        .preferredColorScheme(.dark)
+//        .preferredColorScheme(.dark)
 
     }
 }
