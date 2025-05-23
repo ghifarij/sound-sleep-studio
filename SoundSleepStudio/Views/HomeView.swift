@@ -187,6 +187,7 @@ struct HomeView: View {
                             }
                             remainingSeconds = userSetMinutes * 60
                         }
+                        .foregroundStyle(Color.brandPurple)
                         .padding(.top, 4)
                     } else {
                         // Display timer and make it tappable
@@ -224,6 +225,7 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity)
                 .disabled(isTimerRunning)
                 .accessibilityLabel("Choose sound")
+                .tint(Color.brandPurple) 
                 
                 // Start/Stop Button
                 Button(action: {
@@ -237,7 +239,7 @@ struct HomeView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(isTimerRunning ? Color.red : Color.blue)
+                        .background(isTimerRunning ? Color.red : Color.brandPurple)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
