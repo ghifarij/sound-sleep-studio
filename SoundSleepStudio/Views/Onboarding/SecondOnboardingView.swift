@@ -10,7 +10,7 @@ import RealityKit
 import SwiftUI
 import HealthKit
 
-struct Onboard2View: View {
+struct SecondOnboardingView: View {
     @State private var entity: Entity?
     @State private var isRequestingPermission = false
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
@@ -125,5 +125,5 @@ struct Onboard2View: View {
 }
 
 #Preview {
-    Onboard2View()
+    SecondOnboardingView()
 }

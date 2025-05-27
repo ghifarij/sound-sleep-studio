@@ -216,16 +216,30 @@ struct HomeView: View {
                 }
                 
                 // Sound Picker
-                Picker("Sound", selection: $selectedSound) {
-                    ForEach(soundOptions, id: \ .self) { sound in
-                        Text(sound)
+                Menu {
+                    ForEach(soundOptions, id: \.self) { sound in
+                        Button(sound) {
+                            selectedSound = sound
+                        }
                     }
+                } label: {
+                    HStack {
+                        Text("Sound")
+                            .foregroundColor(.primary)
+                        Spacer()
+                        Text(selectedSound)
+                            .foregroundColor(.secondary)
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.secondary)
+                            .font(.caption)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(.tertiarySystemGroupedBackground))
+                    .cornerRadius(10)
                 }
-                .pickerStyle(MenuPickerStyle())
-                .frame(maxWidth: .infinity)
                 .disabled(isTimerRunning)
-                .accessibilityLabel("Choose sound")
-                .tint(Color.brandPurple) 
+                .accessibilityLabel("Choose sound: \(selectedSound)")
                 
                 // Start/Stop Button
                 Button(action: {
