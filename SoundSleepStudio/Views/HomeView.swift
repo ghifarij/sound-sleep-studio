@@ -16,8 +16,8 @@ struct ECGWaveform: Shape {
         let width = rect.width
         let height = rect.height
         if isFlat {
-            path.move(to: CGPoint(x: 0, y: height/2))
-            path.addLine(to: CGPoint(x: width, y: height/2))
+            path.move(to: CGPoint(x: 0, y: height / 2))
+            path.addLine(to: CGPoint(x: width, y: height / 2))
             return path
         }
 
@@ -27,17 +27,17 @@ struct ECGWaveform: Shape {
             CGPoint(x: 0.15, y: 0.52),
             CGPoint(x: 0.2, y: 0.48),
             CGPoint(x: 0.25, y: 0.5),
-            CGPoint(x: 0.3, y: 0.5-amplitude*0.1),
-            CGPoint(x: 0.32, y: 0.5+amplitude*0.1),
+            CGPoint(x: 0.3, y: 0.5 - amplitude * 0.1),
+            CGPoint(x: 0.32, y: 0.5 + amplitude * 0.1),
             CGPoint(x: 0.35, y: 0.5),
             CGPoint(x: 0.4, y: 0.5),
-            CGPoint(x: 0.45, y: 0.5-amplitude*0.4),
-            CGPoint(x: 0.5, y: 0.5+amplitude*0.9),
-            CGPoint(x: 0.55, y: 0.5-amplitude*0.8),
+            CGPoint(x: 0.45, y: 0.5 - amplitude * 0.4),
+            CGPoint(x: 0.5, y: 0.5 + amplitude * 0.9),
+            CGPoint(x: 0.55, y: 0.5 - amplitude * 0.8),
             CGPoint(x: 0.6, y: 0.5),
-            CGPoint(x: 0.7, y: 0.5+amplitude*0.2),
+            CGPoint(x: 0.7, y: 0.5 + amplitude * 0.2),
             CGPoint(x: 0.8, y: 0.5),
-            CGPoint(x: 1.0, y: 0.5)
+            CGPoint(x: 1.0, y: 0.5),
         ]
         let offset = progress * width
         path.move(to: CGPoint(x: -offset, y: height * points[0].y))
@@ -56,6 +56,7 @@ struct ECGWaveform: Shape {
 }
 
 struct HomeView: View {
+    @State private var audioManager = AudioService.audioManager
     @StateObject private var healthKitService: HealthKitService
     @State private var progress: CGFloat = 0
     @State private var ecgTimer: Timer? = nil
@@ -63,8 +64,8 @@ struct HomeView: View {
     @State private var countDownTimer: Timer? = nil
     @State private var selectedSound: String = "Wave"
     @State private var isTimerRunning: Bool = false
-    @State private var remainingSeconds: Int = 15 * 60 // 15 minutes default
-    @State private var userSetMinutes: Int = 15 // Default 15 minutes
+    @State private var remainingSeconds: Int = 15 * 60  // 15 minutes default
+    @State private var userSetMinutes: Int = 15  // Default 15 minutes
     @State private var isEditingTimer: Bool = false
     let soundOptions = ["Wave", "Forest", "Night", "Rain"]
     // -------------------------------
@@ -75,12 +76,16 @@ struct HomeView: View {
     }
 
     private var ecgAmplitude: CGFloat {
-        healthKitService.currentHeartRate == 0 ? 0 : CGFloat( (Double(healthKitService.currentHeartRate) - 40) / 180 * 1.8 ).clamped(to: 0...1.5)
+        healthKitService.currentHeartRate == 0
+            ? 0
+            : CGFloat(
+                (Double(healthKitService.currentHeartRate) - 40) / 180 * 1.8
+            ).clamped(to: 0...1.5)
     }
 
     private var scrollDuration: Double { 3.0 }
     @Environment(\.scenePhase) private var scenePhase
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -92,7 +97,7 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 24)
                         .padding(.horizontal)
-                    
+
                     // Always show heart rate section
                     heartRateSection
                 }
@@ -129,7 +134,7 @@ struct HomeView: View {
             }
         }
     }
-    
+
     private var heartRateSection: some View {
         VStack(spacing: 16) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -144,41 +149,47 @@ struct HomeView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
-            
+
             ZStack {
-                ECGWaveform(progress: progress, amplitude: ecgAmplitude, isFlat: healthKitService.currentHeartRate == 0)
-                    .stroke(Color.red, lineWidth: 3)
-                    .frame(height: 180)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 32)
-                    .clipped()
-                    .accessibilityHidden(true)
+                ECGWaveform(
+                    progress: progress, amplitude: ecgAmplitude,
+                    isFlat: healthKitService.currentHeartRate == 0
+                )
+                .stroke(Color.red, lineWidth: 3)
+                .frame(height: 180)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 32)
+                .clipped()
+                .accessibilityHidden(true)
             }
             .frame(maxWidth: .infinity)
-            
+
             // --- Timer & Sound Picker UI ---
             VStack(spacing: 16) {
                 // Timer Display - Tappable to edit
                 VStack(spacing: 4) {
                     if isEditingTimer && !isTimerRunning {
                         HStack {
-                            TextField("Minutes", value: $userSetMinutes, format: .number)
-                                .keyboardType(.numberPad)
-                                .multilineTextAlignment(.center)
-                                .font(.system(size: 36, weight: .medium))
-                                .padding(8)
-                                .background(Color(.systemGray6))
-                                .cornerRadius(8)
-                                .onChange(of: userSetMinutes) { _, newValue in
-                                    remainingSeconds = newValue * 60
-                                }
-                            
+                            TextField(
+                                "Minutes", value: $userSetMinutes,
+                                format: .number
+                            )
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 36, weight: .medium))
+                            .padding(8)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                            .onChange(of: userSetMinutes) { _, newValue in
+                                remainingSeconds = newValue * 60
+                            }
+
                             Text("min")
                                 .font(.title2)
                                 .foregroundColor(.secondary)
                         }
                         .frame(width: 150)
-                        
+
                         Button("Done") {
                             isEditingTimer = false
                             // Ensure minimum value
@@ -192,7 +203,11 @@ struct HomeView: View {
                     } else {
                         // Display timer and make it tappable
                         Text(timerString(from: remainingSeconds))
-                            .font(.system(size: 36, weight: .medium, design: .monospaced))
+                            .font(
+                                .system(
+                                    size: 36, weight: .medium,
+                                    design: .monospaced)
+                            )
                             .frame(maxWidth: .infinity)
                             .contentShape(Rectangle())
                             .onTapGesture {
@@ -200,8 +215,10 @@ struct HomeView: View {
                                     isEditingTimer = true
                                 }
                             }
-                            .accessibilityLabel("Timer: \(timerString(from: remainingSeconds)). Tap to edit.")
-                        
+                            .accessibilityLabel(
+                                "Timer: \(timerString(from: remainingSeconds)). Tap to edit."
+                            )
+
                         if !isTimerRunning {
                             Text("Tap to edit")
                                 .font(.caption)
@@ -214,7 +231,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                
+
                 // Sound Picker
                 Menu {
                     ForEach(soundOptions, id: \.self) { sound in
@@ -240,12 +257,15 @@ struct HomeView: View {
                 }
                 .disabled(isTimerRunning)
                 .accessibilityLabel("Choose sound: \(selectedSound)")
-                
+
                 // Start/Stop Button
                 Button(action: {
                     if isTimerRunning {
                         stopTimer()
+                        audioManager.stop()
                     } else {
+                        audioManager.load(trackName: "sample")
+                        audioManager.play()
                         startTimer()
                     }
                 }) {
@@ -253,11 +273,14 @@ struct HomeView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(isTimerRunning ? Color.red : Color.brandPurple)
+                        .background(
+                            isTimerRunning ? Color.red : Color.brandPurple
+                        )
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                .accessibilityLabel(isTimerRunning ? "Stop timer" : "Start timer")
+                .accessibilityLabel(
+                    isTimerRunning ? "Stop timer" : "Start timer")
             }
             .padding(.top, 8)
             // --- End Timer & Sound Picker UI ---
@@ -272,7 +295,8 @@ struct HomeView: View {
     }
     private func startECGAnimation() {
         stopECGAnimation()
-        ecgTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
+        ecgTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true)
+        { _ in
             let increment = CGFloat(0.016 / self.scrollDuration)
             self.progress += increment
             if self.progress > 1 { self.progress -= 1 }
@@ -297,13 +321,15 @@ struct HomeView: View {
             return String(format: "%02d : %02d", m, s)
         }
     }
-    
+
     private func startTimer() {
         isEditingTimer = false
         remainingSeconds = userSetMinutes * 60
         isTimerRunning = true
         countDownTimer?.invalidate()
-        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        countDownTimer = Timer.scheduledTimer(
+            withTimeInterval: 1, repeats: true
+        ) { _ in
             if self.remainingSeconds > 0 {
                 self.remainingSeconds -= 1
             } else {
@@ -311,7 +337,7 @@ struct HomeView: View {
             }
         }
     }
-    
+
     private func stopTimer() {
         countDownTimer?.invalidate()
         countDownTimer = nil
@@ -320,7 +346,6 @@ struct HomeView: View {
         remainingSeconds = userSetMinutes * 60
     }
 }
-
 
 #Preview("Default") {
     HomeView()
