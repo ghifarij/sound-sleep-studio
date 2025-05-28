@@ -5,7 +5,6 @@
 //  Created by Kelvin on 21/05/25.
 //
 
-
 import RealityKit
 import SwiftUI
 import HealthKit
@@ -13,11 +12,11 @@ import HealthKit
 struct SecondOnboardingView: View {
     @State private var entity: Entity?
     @State private var isRequestingPermission = false
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
+    @State private var errorMessage: String? = nil
+    @AppStorage(AppStorageKeys.hasCompletedOnboarding) private var hasCompletedOnboarding: Bool = false
     
-    // Create a health store instance here
-    private let healthStore = HKHealthStore()
-    private let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+    // Use the shared HealthKitService for centralized permission handling
+    @StateObject private var healthKitService = HealthKitService()
     
     var body: some View {
         VStack(spacing: 25) {
@@ -36,7 +35,6 @@ struct SecondOnboardingView: View {
                     let light = DirectionalLight()
                     content.add(light)
 
-                   
                     startRotation()
                 } catch {
                     print("❌ Failed to load model:", error)
@@ -60,10 +58,19 @@ struct SecondOnboardingView: View {
             .multilineTextAlignment(.center)
             .foregroundColor(.secondary)
             .padding(.horizontal, 32)
+            
+            // Show error message if any
+            if let errorMessage = errorMessage {
+                Text(errorMessage)
+                    .font(.caption)
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+            }
 
             Spacer()
 
-            // Continue Button - now with proper health permission request
+            // Continue Button - using HealthKitService
             Button(action: {
                 requestHealthPermissions()
             }) {
@@ -89,26 +96,29 @@ struct SecondOnboardingView: View {
         .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
     }
     
-    // Request HealthKit permissions
+    // Request HealthKit permissions using our HealthKitService
     private func requestHealthPermissions() {
         isRequestingPermission = true
+        errorMessage = nil
         
-        // Request health permissions
-        let typesToRead: Set<HKObjectType> = [heartRateType]
-        
-        healthStore.requestAuthorization(toShare: nil, read: typesToRead) { success, error in
+        // Use HealthKitService to request permissions
+        healthKitService.requestHealthKitPermission { success, error in
             DispatchQueue.main.async {
                 isRequestingPermission = false
                 
-                if success {
-                    print("Health permissions granted")
-                } else if let error = error {
+                if !success, let error = error {
+                    errorMessage = "Health permission error: \(error.localizedDescription)"
                     print("Health permission error: \(error.localizedDescription)")
+                } else if success {
+                    print("Health permissions granted successfully")
                 }
                 
-                // Regardless of permission result, mark onboarding as complete
-                // This is important - we continue even if they deny permission
-                hasCompletedOnboarding = true
+                // Add a small delay to ensure smooth transition
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    // Regardless of permission result, mark onboarding as complete
+                    // This is important - we continue even if they deny permission
+                    hasCompletedOnboarding = true
+                }
             }
         }
     }
