@@ -9,6 +9,7 @@ import AVFoundation
 
 @Observable
 class AudioService {
+    
     static let audioManager = AudioService()
 
     private var audioPlayer: AVAudioPlayer?
@@ -18,6 +19,7 @@ class AudioService {
 
     private init() {}
 
+    //Load the audio file
     func load(trackName: String, fileExtension: String = "mp3") {
         guard
             let url = Bundle.main.url(
@@ -36,16 +38,19 @@ class AudioService {
         }
     }
     
+    //play audio
     func play() {
         audioPlayer?.play()
         isPlaying = true
     }
     
+    //pause audio
     func pause() {
         audioPlayer?.pause()
         isPlaying = false
     }
     
+    //stop audio
     func stop() {
         audioPlayer?.stop()
         audioPlayer?.currentTime = 0

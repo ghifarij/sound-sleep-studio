@@ -6,11 +6,45 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		37B9B2F12DE6999800581C0C /* YourAppWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37B9B2EF2DE6999800581C0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE99A0602DDABD8600BC84D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37B9B2E32DE6999700581C0C;
+			remoteInfo = "YourAppWatch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		37B9B2F52DE6999800581C0C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				37B9B2F12DE6999800581C0C /* YourAppWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YourAppWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundSleepStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		37B9B2E52DE6999700581C0C /* YourAppWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "YourAppWatch Watch App";
+			sourceTree = "<group>";
+		};
 		FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SoundSleepStudio;
@@ -19,6 +53,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		37B9B2E12DE6999700581C0C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE99A0652DDABD8600BC84D0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */,
+				37B9B2E52DE6999700581C0C /* YourAppWatch Watch App */,
 				FE99A0692DDABD8600BC84D0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */,
+				37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +91,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		37B9B2E32DE6999700581C0C /* YourAppWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37B9B2F22DE6999800581C0C /* Build configuration list for PBXNativeTarget "YourAppWatch Watch App" */;
+			buildPhases = (
+				37B9B2E02DE6999700581C0C /* Sources */,
+				37B9B2E12DE6999700581C0C /* Frameworks */,
+				37B9B2E22DE6999700581C0C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				37B9B2E52DE6999700581C0C /* YourAppWatch Watch App */,
+			);
+			name = "YourAppWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "YourAppWatch Watch App";
+			productReference = 37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE99A0752DDABD8600BC84D0 /* Build configuration list for PBXNativeTarget "SoundSleepStudio" */;
@@ -55,10 +120,12 @@
 				FE99A0642DDABD8600BC84D0 /* Sources */,
 				FE99A0652DDABD8600BC84D0 /* Frameworks */,
 				FE99A0662DDABD8600BC84D0 /* Resources */,
+				37B9B2F52DE6999800581C0C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				37B9B2F02DE6999800581C0C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */,
@@ -77,9 +144,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					37B9B2E32DE6999700581C0C = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					FE99A0672DDABD8600BC84D0 = {
 						CreatedOnToolsVersion = 16.3;
 					};
@@ -100,11 +170,19 @@
 			projectRoot = "";
 			targets = (
 				FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */,
+				37B9B2E32DE6999700581C0C /* YourAppWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		37B9B2E22DE6999700581C0C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE99A0662DDABD8600BC84D0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +193,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		37B9B2E02DE6999700581C0C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE99A0642DDABD8600BC84D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +209,75 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		37B9B2F02DE6999800581C0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37B9B2E32DE6999700581C0C /* YourAppWatch Watch App */;
+			targetProxy = 37B9B2EF2DE6999800581C0C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		37B9B2F32DE6999800581C0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"YourAppWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = YourAppWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.afga.SoundSleepStudio;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		37B9B2F42DE6999800581C0C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"YourAppWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = YourAppWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.afga.SoundSleepStudio;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
 		FE99A0732DDABD8600BC84D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -254,7 +407,7 @@
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2835P8Z43C;
+				DEVELOPMENT_TEAM = YN8NVQ69WY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
@@ -269,7 +422,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.afga.SoundSleepStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -286,7 +439,7 @@
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2835P8Z43C;
+				DEVELOPMENT_TEAM = YN8NVQ69WY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
@@ -301,7 +454,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.afga.SoundSleepStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -313,6 +466,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		37B9B2F22DE6999800581C0C /* Build configuration list for PBXNativeTarget "YourAppWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37B9B2F32DE6999800581C0C /* Debug */,
+				37B9B2F42DE6999800581C0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FE99A0632DDABD8600BC84D0 /* Build configuration list for PBXProject "SoundSleepStudio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
