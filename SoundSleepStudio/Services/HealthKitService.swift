@@ -24,7 +24,7 @@ class HealthKitService: ObservableObject {
             self.currentHeartRate = previewHeartRate
         } else {
             // Request authorization once at startup
-            requestInitialAuthorization()
+            requestHealthKitPermission()
         }
     }
     
@@ -45,24 +45,50 @@ class HealthKitService: ObservableObject {
     }
     
     // MARK: - Public Methods
-    private func requestInitialAuthorization() {
-        // One-time authorization request
+    
+    /// Request authorization for heart rate access with optional completion handler
+    /// - Parameter completion: Callback with success/error information
+    func requestHealthKitPermission(completion: ((Bool, Error?) -> Void)? = nil) {
+        if isPreviewMode {
+            completion?(true, nil)
+            return
+        }
+        
+        guard HKHealthStore.isHealthDataAvailable() else {
+            let error = NSError(domain: "com.soundsleepstudio", code: 1, 
+                              userInfo: [NSLocalizedDescriptionKey: "Health data is not available on this device"])
+            print("HealthKit: Health data is not available on this device")
+            completion?(false, error)
+            return
+        }
+        
+        // Request authorization
         let typesToRead: Set<HKObjectType> = [heartRateType]
+        
         healthStore.requestAuthorization(toShare: nil, read: typesToRead) { [weak self] success, error in
+            guard let self = self else {
+                completion?(false, nil)
+                return
+            }
+            
             if success {
                 print("HealthKit: Authorization successful")
                 DispatchQueue.main.async {
-                    // Set up the observer query after authorization
-                    self?.setupHeartRateMonitoring()
+                    // Set up monitoring
+                    self.setupHeartRateMonitoring()
                     
-                    // Initial fetch to get current heart rate
-                    self?.fetchLatestHeartRate()
+                    // Initial fetch
+                    self.fetchLatestHeartRate()
                     
-                    // Enable background delivery if possible
-                    self?.enableBackgroundDelivery()
+                    // Enable background delivery
+                    self.enableBackgroundDelivery()
+                    
+                    // Call completion handler
+                    completion?(true, nil)
                 }
-            } else if let error = error {
-                print("HealthKit: Authorization failed: \(error.localizedDescription)")
+            } else {
+                print("HealthKit: Authorization failed: \(error?.localizedDescription ?? "Unknown error")")
+                completion?(false, error)
             }
         }
     }
