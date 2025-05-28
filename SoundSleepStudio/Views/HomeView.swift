@@ -282,10 +282,6 @@ struct HomeView: View {
         ecgTimer?.invalidate()
         ecgTimer = nil
     }
-    private func restartECGAnimation() {
-        stopECGAnimation()
-        startECGAnimation()
-    }
     // --- Timer Helper Functions ---
     private func timerString(from seconds: Int) -> String {
         let h = seconds / 3600
