@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37B9B2F12DE6999800581C0C /* YourAppWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		378DFA822DE6DC77006F7F14 /* SleepWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 378DFA752DE6DC76006F7F14 /* SleepWatch Watch App.app */; platformFilters = (watchos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		37B9B2EF2DE6999800581C0C /* PBXContainerItemProxy */ = {
+		378DFA802DE6DC77006F7F14 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE99A0602DDABD8600BC84D0 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 37B9B2E32DE6999700581C0C;
-			remoteInfo = "YourAppWatch Watch App";
+			remoteGlobalIDString = 378DFA742DE6DC76006F7F14;
+			remoteInfo = "SleepWatch Watch App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -27,7 +27,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				37B9B2F12DE6999800581C0C /* YourAppWatch Watch App.app in Embed Watch Content */,
+				378DFA822DE6DC77006F7F14 /* SleepWatch Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,14 +35,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YourAppWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		378DFA752DE6DC76006F7F14 /* SleepWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SleepWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundSleepStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		37B9B2E52DE6999700581C0C /* YourAppWatch Watch App */ = {
+		378DFA762DE6DC76006F7F14 /* SleepWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "YourAppWatch Watch App";
+			path = "SleepWatch Watch App";
 			sourceTree = "<group>";
 		};
 		FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */ = {
@@ -53,7 +53,7 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		37B9B2E12DE6999700581C0C /* Frameworks */ = {
+		378DFA722DE6DC76006F7F14 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -74,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */,
-				37B9B2E52DE6999700581C0C /* YourAppWatch Watch App */,
+				378DFA762DE6DC76006F7F14 /* SleepWatch Watch App */,
 				FE99A0692DDABD8600BC84D0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				FE99A0682DDABD8600BC84D0 /* SoundSleepStudio.app */,
-				37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */,
+				378DFA752DE6DC76006F7F14 /* SleepWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,26 +91,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		37B9B2E32DE6999700581C0C /* YourAppWatch Watch App */ = {
+		378DFA742DE6DC76006F7F14 /* SleepWatch Watch App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 37B9B2F22DE6999800581C0C /* Build configuration list for PBXNativeTarget "YourAppWatch Watch App" */;
+			buildConfigurationList = 378DFA832DE6DC77006F7F14 /* Build configuration list for PBXNativeTarget "SleepWatch Watch App" */;
 			buildPhases = (
-				37B9B2E02DE6999700581C0C /* Sources */,
-				37B9B2E12DE6999700581C0C /* Frameworks */,
-				37B9B2E22DE6999700581C0C /* Resources */,
+				378DFA712DE6DC76006F7F14 /* Sources */,
+				378DFA722DE6DC76006F7F14 /* Frameworks */,
+				378DFA732DE6DC76006F7F14 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				37B9B2E52DE6999700581C0C /* YourAppWatch Watch App */,
+				378DFA762DE6DC76006F7F14 /* SleepWatch Watch App */,
 			);
-			name = "YourAppWatch Watch App";
+			name = "SleepWatch Watch App";
 			packageProductDependencies = (
 			);
-			productName = "YourAppWatch Watch App";
-			productReference = 37B9B2E42DE6999700581C0C /* YourAppWatch Watch App.app */;
+			productName = "SleepWatch Watch App";
+			productReference = 378DFA752DE6DC76006F7F14 /* SleepWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */ = {
@@ -125,7 +125,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				37B9B2F02DE6999800581C0C /* PBXTargetDependency */,
+				378DFA812DE6DC77006F7F14 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */,
@@ -147,7 +147,7 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
-					37B9B2E32DE6999700581C0C = {
+					378DFA742DE6DC76006F7F14 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 					FE99A0672DDABD8600BC84D0 = {
@@ -170,13 +170,13 @@
 			projectRoot = "";
 			targets = (
 				FE99A0672DDABD8600BC84D0 /* SoundSleepStudio */,
-				37B9B2E32DE6999700581C0C /* YourAppWatch Watch App */,
+				378DFA742DE6DC76006F7F14 /* SleepWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		37B9B2E22DE6999700581C0C /* Resources */ = {
+		378DFA732DE6DC76006F7F14 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -193,7 +193,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		37B9B2E02DE6999700581C0C /* Sources */ = {
+		378DFA712DE6DC76006F7F14 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -210,28 +210,32 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		37B9B2F02DE6999800581C0C /* PBXTargetDependency */ = {
+		378DFA812DE6DC77006F7F14 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 37B9B2E32DE6999700581C0C /* YourAppWatch Watch App */;
-			targetProxy = 37B9B2EF2DE6999800581C0C /* PBXContainerItemProxy */;
+			target = 378DFA742DE6DC76006F7F14 /* SleepWatch Watch App */;
+			targetProxy = 378DFA802DE6DC77006F7F14 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		37B9B2F32DE6999800581C0C /* Debug */ = {
+		378DFA842DE6DC77006F7F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SleepWatch Watch App/SleepWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"YourAppWatch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SleepWatch Watch App/Preview Content\"";
 				DEVELOPMENT_TEAM = YN8NVQ69WY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = YourAppWatch;
+				INFOPLIST_FILE = "SleepWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SleepWatch;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.afga.SoundSleepStudio;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.wentao.SoundSleepStudio;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -248,20 +252,24 @@
 			};
 			name = Debug;
 		};
-		37B9B2F42DE6999800581C0C /* Release */ = {
+		378DFA852DE6DC77006F7F14 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SleepWatch Watch App/SleepWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"YourAppWatch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SleepWatch Watch App/Preview Content\"";
 				DEVELOPMENT_TEAM = YN8NVQ69WY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = YourAppWatch;
+				INFOPLIST_FILE = "SleepWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SleepWatch;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.afga.SoundSleepStudio;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.wentao.SoundSleepStudio;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,6 +410,7 @@
 		FE99A0762DDABD8600BC84D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
@@ -416,6 +425,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.wentao.SoundSleepStudio;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -425,6 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -434,6 +445,7 @@
 		FE99A0772DDABD8600BC84D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
@@ -448,6 +460,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.wentao.SoundSleepStudio;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -457,6 +470,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -466,11 +480,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		37B9B2F22DE6999800581C0C /* Build configuration list for PBXNativeTarget "YourAppWatch Watch App" */ = {
+		378DFA832DE6DC77006F7F14 /* Build configuration list for PBXNativeTarget "SleepWatch Watch App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				37B9B2F32DE6999800581C0C /* Debug */,
-				37B9B2F42DE6999800581C0C /* Release */,
+				378DFA842DE6DC77006F7F14 /* Debug */,
+				378DFA852DE6DC77006F7F14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
