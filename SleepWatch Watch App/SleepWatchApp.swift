@@ -9,9 +9,20 @@ import SwiftUI
 
 @main
 struct SleepWatch_Watch_AppApp: App {
+    
+    @WKExtensionDelegateAdaptor(ExtensionDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmptyView()
         }
+    }
+}
+
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
+    let manage = HeartRateManager()
+    
+    func applicationDidFinishLaunching() {
+        
     }
 }
