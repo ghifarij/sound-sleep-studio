@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		378DFA822DE6DC77006F7F14 /* SleepWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 378DFA752DE6DC76006F7F14 /* SleepWatch Watch App.app */; platformFilters = (watchos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		378DFA822DE6DC77006F7F14 /* SleepWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 378DFA752DE6DC76006F7F14 /* SleepWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,11 +70,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37386B962DEAE59B00188A8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FE99A05F2DDABD8600BC84D0 = {
 			isa = PBXGroup;
 			children = (
 				FE99A06A2DDABD8600BC84D0 /* SoundSleepStudio */,
 				378DFA762DE6DC76006F7F14 /* SleepWatch Watch App */,
+				37386B962DEAE59B00188A8B /* Frameworks */,
 				FE99A0692DDABD8600BC84D0 /* Products */,
 			);
 			sourceTree = "<group>";

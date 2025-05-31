@@ -57,6 +57,7 @@ struct ECGWaveform: Shape {
 
 struct HomeView: View {
     @State private var audioManager = AudioService.audioManager
+    @StateObject private var hrController = HeartRateController()
     @StateObject private var healthKitService: HealthKitService
     @State private var progress: CGFloat = 0
     @State private var ecgTimer: Timer? = nil
@@ -138,7 +139,7 @@ struct HomeView: View {
     private var heartRateSection: some View {
         VStack(spacing: 16) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text("\(Int(healthKitService.currentHeartRate))")
+                Text("\(Int(hrController.bpm))")
                     .font(.system(size: 64, weight: .bold, design: .rounded))
                     .foregroundColor(.red)
                     .accessibilityLabel("Current heart rate")
@@ -262,11 +263,13 @@ struct HomeView: View {
                 Button(action: {
                     if isTimerRunning {
                         stopTimer()
+                        hrController.stopHeartRate()
                         audioManager.stop()
                     } else {
                         audioManager.load(trackName: "sample")
                         audioManager.play()
                         startTimer()
+                        hrController.startHeartRate()
                     }
                 }) {
                     Text(isTimerRunning ? "Stop" : "Start")
