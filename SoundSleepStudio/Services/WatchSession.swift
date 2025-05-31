@@ -29,8 +29,6 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
             WCSession.default.sendMessage(
                 ["command": "start"], replyHandler: nil)
             print("sucessfully send start message")
-        } else {
-            print("watch is unreachable")
         }
     }
 
@@ -48,6 +46,9 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
                 self.bpm = bpmValue
             }
         }
+        if let Value = message["status"] as? String {
+            print(Value)
+        }
     }
 
     func session(
@@ -55,6 +56,12 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
     ) {}
-    func sessionDidBecomeInactive(_ session: WCSession) {}
-    func sessionDidDeactivate(_ session: WCSession) {}
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        WCSession.default.activate()
+        print("")
+    }
+    func sessionDidDeactivate(_ session: WCSession) {
+        WCSession.default.activate()
+        print("deactive")
+    }
 }

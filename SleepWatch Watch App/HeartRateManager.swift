@@ -11,8 +11,10 @@ class HeartRateManager: NSObject,
 
     override init() {
         super.init()
-        setupWCSession()
         requestAuthorization()
+        if WCSession.default.isReachable {
+                WCSession.default.sendMessage(["status": "awake"], replyHandler: nil)
+            }
     }
 
     // MARK: - WCSession Setup

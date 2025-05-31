@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import WatchConnectivity
 
 @main
 struct SleepWatch_Watch_AppApp: App {
-    
+
     @WKExtensionDelegateAdaptor(ExtensionDelegate.self) var delegate
-    
+
     var body: some Scene {
         WindowGroup {
             EmptyView()
@@ -21,8 +22,11 @@ struct SleepWatch_Watch_AppApp: App {
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
     let manage = HeartRateManager()
-    
+
     func applicationDidFinishLaunching() {
-        
+        if WCSession.isSupported() {
+            WCSession.default.delegate = manage
+            WCSession.default.activate()
+        }
     }
 }
