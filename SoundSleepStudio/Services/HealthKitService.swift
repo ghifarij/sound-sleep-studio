@@ -284,22 +284,3 @@ class HealthKitService: ObservableObject {
         healthStore.execute(query)
     }
 }
-
-// Preview helper extension
-extension HealthKitService {
-    static var preview60BPM: HealthKitService {
-        HealthKitService(previewMode: true, previewHeartRate: 60)
-    }
-    
-    static var preview80BPM: HealthKitService {
-        HealthKitService(previewMode: true, previewHeartRate: 80)
-    }
-    
-    static var preview100BPM: HealthKitService {
-        HealthKitService(previewMode: true, previewHeartRate: 100)
-    }
-    
-    static var preview120BPM: HealthKitService {
-        HealthKitService(previewMode: true, previewHeartRate: 120)
-    }
-}
