@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
 import WatchConnectivity
 
 class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
     @Published var bpm: Double = 0.0
+    var modelContext: ModelContext?
+    var currentSession: HeartRateSession?
 
     override init() {
         super.init()
@@ -23,9 +26,24 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
 
+    func setContext(_ context: ModelContext) {
+        self.modelContext = context
+    }
+
     func startHeartRate() {
         if WCSession.default.isReachable {
-    
+            let startOfToday = Calendar.current.startOfDay(for: Date())
+            let descriptor = FetchDescriptor<HeartRateSession>(
+                predicate: #Predicate { $0.startDate >= startOfToday }
+            )
+            if let todaySession = try? modelContext?.fetch(descriptor).first {
+                modelContext?.delete(todaySession)
+            }
+            let newSession = HeartRateSession(startDate: Date())
+            modelContext?.insert(newSession)
+            currentSession = newSession
+            let bpmR = BpmRecord(timestamp: Date(), bpm: 70)
+            currentSession?.bpmRecords.append(bpmR)
             WCSession.default.sendMessage(
                 ["command": "start"], replyHandler: nil)
             print("sucessfully send start message")
@@ -34,6 +52,8 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
 
     func stopHeartRate() {
         if WCSession.default.isReachable {
+            currentSession?.endDate = Date()
+            try? modelContext?.save()
             WCSession.default.sendMessage(
                 ["command": "stop"], replyHandler: nil)
         }
@@ -44,10 +64,17 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
         if let bpmValue = message["bpm"] as? Double {
             DispatchQueue.main.async {
                 self.bpm = bpmValue
+
+                let record = BpmRecord(
+                    timestamp: Date(), bpm: bpmValue,
+                    session: self.currentSession)
+                self.currentSession?.bpmRecords.append(record)
+
+                self.currentSession?.minBpm = min(
+                    self.currentSession?.minBpm ?? bpmValue, bpmValue)
+                self.currentSession?.maxBpm = max(
+                    self.currentSession?.maxBpm ?? bpmValue, bpmValue)
             }
-        }
-        if let Value = message["status"] as? String {
-            print(Value)
         }
     }
 
@@ -57,11 +84,9 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
         error: Error?
     ) {}
     func sessionDidBecomeInactive(_ session: WCSession) {
-        WCSession.default.activate()
-        print("")
+
     }
     func sessionDidDeactivate(_ session: WCSession) {
-        WCSession.default.activate()
-        print("deactive")
+
     }
 }

@@ -15,7 +15,7 @@ struct SleepWatch_Watch_AppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EmptyView()
+            Text("Transmitting BPM to your iphone ❤️")
         }
     }
 }

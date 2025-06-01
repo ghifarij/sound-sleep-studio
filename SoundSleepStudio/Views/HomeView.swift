@@ -56,6 +56,7 @@ struct ECGWaveform: Shape {
 }
 
 struct HomeView: View {
+    @Environment(\.modelContext) var context
     @State private var audioManager = AudioService.audioManager
     @StateObject private var hrController = HeartRateController()
     @StateObject private var healthKitService: HealthKitService
@@ -63,7 +64,7 @@ struct HomeView: View {
     @State private var ecgTimer: Timer? = nil
     // --- Timer & Sound Picker State ---
     @State private var countDownTimer: Timer? = nil
-    @State private var selectedSound: String = "Wave"
+    @State private var selectedSound: String = "    Wave"
     @State private var isTimerRunning: Bool = false
     @State private var remainingSeconds: Int = 15 * 60  // 15 minutes default
     @State private var userSetMinutes: Int = 15  // Default 15 minutes
@@ -103,6 +104,9 @@ struct HomeView: View {
                     heartRateSection
                 }
                 .padding(.bottom, 24)
+                .onAppear{
+                    hrController.setContext(context)
+                }
             }
             .background(Color(.systemGroupedBackground).ignoresSafeArea())
             .navigationTitle("")

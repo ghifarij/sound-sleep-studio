@@ -8,6 +8,7 @@
 import SwiftUI
 import BackgroundTasks
 import HealthKit
+import SwiftData
 
 @main
 struct SoundSleepStudioApp: App {
@@ -54,6 +55,8 @@ struct SoundSleepStudioApp: App {
                 }
             }
         }
+        .modelContainer(for: [HeartRateSession.self, BpmRecord.self])
+        
     }
     
     private func registerBackgroundTasks() {
