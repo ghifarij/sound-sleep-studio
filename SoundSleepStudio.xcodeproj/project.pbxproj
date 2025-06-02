@@ -231,11 +231,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "SleepWatch Watch App/SleepWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SleepWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SleepWatch-Watch-App-Info.plist";
@@ -243,13 +242,13 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.wentao.SoundSleepStudio;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.afga.SoundSleepStudio;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = name.afga.SoundSleepStudio.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -265,11 +264,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "SleepWatch Watch App/SleepWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SleepWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SleepWatch-Watch-App-Info.plist";
@@ -277,13 +275,13 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.wentao.SoundSleepStudio;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = name.afga.SoundSleepStudio;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = name.afga.SoundSleepStudio.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -424,7 +422,7 @@
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
@@ -440,7 +438,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = name.afga.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SUPPORTS_MACCATALYST = YES;
@@ -459,7 +457,7 @@
 				CODE_SIGN_ENTITLEMENTS = SoundSleepStudio/SoundSleepStudio.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YN8NVQ69WY;
+				DEVELOPMENT_TEAM = 2835P8Z43C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We use your heart rate to track relaxation and sleep quality.";
@@ -475,7 +473,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = name.wentao.SoundSleepStudio;
+				PRODUCT_BUNDLE_IDENTIFIER = name.afga.SoundSleepStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SUPPORTS_MACCATALYST = YES;
