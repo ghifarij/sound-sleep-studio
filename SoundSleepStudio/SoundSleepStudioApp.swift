@@ -112,12 +112,7 @@ struct MainTabView: View {
                     Label("Analytics", systemImage: "chart.bar.fill")
                 }
                 .tag(1)
-            
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gear.circle.fill")
-                }
-                .tag(2)
+        
         }
         .accentColor(.blue)
     }
