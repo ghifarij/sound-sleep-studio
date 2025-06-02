@@ -20,7 +20,6 @@ class HeartRateController: NSObject, ObservableObject, WCSessionDelegate {
         if WCSession.isSupported() {
             WCSession.default.delegate = self
             WCSession.default.activate()
-            print("watch is supoorted")
         } else {
             print("watch is not supported")
         }

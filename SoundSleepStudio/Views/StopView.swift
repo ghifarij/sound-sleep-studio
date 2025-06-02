@@ -11,6 +11,7 @@ struct StopView: View {
     @State private var minutes: Int = 0
     @State private var seconds: Int = 0
     @State private var timer: Timer? = nil
+    @State public var bpmManager: HeartRateController
     var dismiss: () -> Void
     
     var body: some View {
@@ -41,6 +42,8 @@ struct StopView: View {
             Button(action: {
                 stopTimer()
                 dismiss()
+                AudioService.audioManager.stop()
+                bpmManager.stopHeartRate()
             }) {
                 Text("Stop")
                     .font(.headline)
@@ -88,9 +91,4 @@ struct StopView: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        StopView(dismiss: {})
-    }
-}
 
