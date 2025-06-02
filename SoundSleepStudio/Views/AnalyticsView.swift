@@ -58,6 +58,8 @@ struct AnalyticsView: View {
             .pickerStyle(.segmented)
 
             switch selectedRange {
+                
+            //MARK: DAYILY ANAYLSIS PAGE
             case .daily:
                 if todaySessions.isEmpty {
                     Text("No data, please start to use app, thanks").frame(
@@ -87,7 +89,7 @@ struct AnalyticsView: View {
                     .foregroundColor(.gray)
                     .font(.subheadline)
 
-                    // Chart
+                    // Chart, daily
                     Chart {
                         ForEach(
                             todaySessions[0].bpmRecords.sorted(by: {
@@ -140,58 +142,11 @@ struct AnalyticsView: View {
                     //                    .background(Color(.darkGray).opacity(0.6))
                     //                    .cornerRadius(12)
                 }
+            
+            //MARK: WEEKLY PAGE
             case .weekly:
                 Text("2")
             }
-
-            //            // Range info
-            //            Text("RANGE")
-            //                .font(.caption)
-            //                .foregroundColor(.secondary)
-            //
-            //            HStack {
-            //                Text("60–78")
-            //                    .font(.title)
-            //                    .foregroundColor(.primary)
-            //                Text("BPM")
-            //                    .foregroundColor(.secondary)
-            //                    .font(.title3)
-            //            }
-            //
-            //            Text("27 March 2025")
-            //                .foregroundColor(.gray)
-            //                .font(.subheadline)
-            //
-            //            // Chart
-            //            Chart {
-            //                ForEach(0..<6, id: \.self) { i in
-            //                    PointMark(
-            //                        x: .value("Time", i),
-            //                        y: .value("BPM", Int.random(in: 60...78))
-            //                    )
-            //                }
-            //            }
-            //            .frame(height: 200)
-            //            .chartYScale(domain: 50...125)
-            //            .foregroundStyle(.purple)
-            //            .chartXAxis {
-            //                AxisMarks(position: .bottom)
-            //            }
-            //
-            //            // Footer tip
-            //            HStack(alignment: .top, spacing: 8) {
-            //                Image(systemName: "lightbulb.fill")
-            //                    .foregroundColor(.yellow)
-            //                Text(
-            //                    "You reach your resting heart rate at 01:34 AM, your body finally slowed down."
-            //                )
-            //                .font(.footnote)
-            //                .foregroundColor(.primary)
-            //            }
-            //            .frame(maxWidth: .infinity)
-            //            .padding()
-            //            .background(Color(.darkGray).opacity(0.6))
-            //            .cornerRadius(12)
         }
         .padding()
         .frame(maxHeight: .infinity, alignment: .top)
