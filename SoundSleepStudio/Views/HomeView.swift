@@ -15,7 +15,8 @@ struct HomeView: View {
     @State private var foregroundVolume = 0.5
     @State private var backgroundVolume = 0.5
     @State private var navigateToStopView = false
-    @State private var avPlayer = AudioService.audioManager
+    @State public var avPlayer1 = AudioService()
+    @State public var avPlayer2 = AudioService()
     @StateObject public var bpmManager = HeartRateController()
 
     let foregroundSounds = ["Piano", "Pads", "Breathing Voice"]
@@ -137,8 +138,10 @@ struct HomeView: View {
                     // Start Button
                     Button(action: {
                         navigateToStopView = true
-                        avPlayer.load(trackName: "sample")
-                        avPlayer.play()
+                        avPlayer1.load(trackName: "sample1")
+                        avPlayer1.play()
+                        avPlayer2.load(trackName: "sample2")
+                        avPlayer2.play()
                         bpmManager.startHeartRate()
                     }) {
                         Text("Start")
@@ -162,7 +165,7 @@ struct HomeView: View {
             }
             .navigationTitle("Sound Sleep")
             .navigationDestination(isPresented: $navigateToStopView) {
-                StopView(bpmManager: bpmManager, dismiss: { navigateToStopView = false })
+                StopView(bpmManager: bpmManager, avPlayer1: avPlayer1, avPlayer2: avPlayer2, dismiss: { navigateToStopView = false })
             }
         }
     }

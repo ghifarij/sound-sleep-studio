@@ -12,6 +12,8 @@ struct StopView: View {
     @State private var seconds: Int = 0
     @State private var timer: Timer? = nil
     @State public var bpmManager: HeartRateController
+    @State public var avPlayer1: AudioService
+    @State public var avPlayer2: AudioService
     var dismiss: () -> Void
     
     var body: some View {
@@ -42,7 +44,8 @@ struct StopView: View {
             Button(action: {
                 stopTimer()
                 dismiss()
-                AudioService.audioManager.stop()
+                avPlayer1.stop()
+                avPlayer2.stop()
                 bpmManager.stopHeartRate()
             }) {
                 Text("Stop")

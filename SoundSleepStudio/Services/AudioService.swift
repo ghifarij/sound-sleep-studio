@@ -10,14 +10,13 @@ import AVFoundation
 @Observable
 class AudioService {
     
-    static let audioManager = AudioService()
 
     private var audioPlayer: AVAudioPlayer?
     var isPlaying = false
     var currentTrackName: String?
     var currentRate: Float = 1.0
 
-    private init() {}
+    init() {}
 
     //Load the audio file
     func load(trackName: String, fileExtension: String = "mp3") {
