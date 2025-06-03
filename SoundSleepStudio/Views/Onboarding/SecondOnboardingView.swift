@@ -13,7 +13,9 @@ struct SecondOnboardingView: View {
     @State private var entity: Entity?
     @State private var isRequestingPermission = false
     @State private var errorMessage: String? = nil
-    @AppStorage(AppStorageKeys.hasCompletedOnboarding) private var hasCompletedOnboarding: Bool = false
+//    @AppStorage(AppStorageKeys.hasCompletedOnboarding) private var hasCompletedOnboarding: Bool = false
+    
+    @Binding var currentScreen: SoundSleepStudioApp.AppScreen
     
     // Use the shared HealthKitService for centralized permission handling
     @StateObject private var healthKitService = HealthKitService()
@@ -52,7 +54,7 @@ struct SecondOnboardingView: View {
 
             // Description
             Text(
-                "Allow Sound Sleep to access your heart rate through your Apple Watch. Sound Sleep also requires to access your sleep duration in your Health App"
+                "Allow Sound Sleep to access your heart rate through your Apple Watch"
             )
             .font(.body)
             .multilineTextAlignment(.center)
@@ -113,12 +115,13 @@ struct SecondOnboardingView: View {
                     print("Health permissions granted successfully")
                 }
                 
-                // Add a small delay to ensure smooth transition
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                    hasCompletedOnboarding = true
+//                }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    // Regardless of permission result, mark onboarding as complete
-                    // This is important - we continue even if they deny permission
-                    hasCompletedOnboarding = true
-                }
+                                    currentScreen = .main
+                                }
             }
         }
     }
@@ -135,5 +138,5 @@ struct SecondOnboardingView: View {
 }
 
 #Preview {
-    SecondOnboardingView()
+    SecondOnboardingView(currentScreen: .constant(.onboarding2))
 }

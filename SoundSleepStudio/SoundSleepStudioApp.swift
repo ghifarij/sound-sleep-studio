@@ -12,12 +12,7 @@ import SwiftData
 
 @main
 struct SoundSleepStudioApp: App {
-    // Use AppStorage to persist whether onboarding has been completed
-    // Remove this struct from SoundSleepStudioApp.swift
-    // struct SettingsView { ... }
-    
-    // And update the AppStorage reference to use the shared key
-    @AppStorage(AppStorageKeys.hasCompletedOnboarding) private var hasCompletedOnboarding: Bool = false
+//    @AppStorage(AppStorageKeys.hasCompletedOnboarding) private var hasCompletedOnboarding: Bool = false
     @State private var currentScreen: AppScreen = .onboarding
     
     enum AppScreen {
@@ -34,25 +29,22 @@ struct SoundSleepStudioApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                // If onboarding has been completed, go straight to main screen
-                if hasCompletedOnboarding {
-                    MainTabView()
-                } else {
-                    // Otherwise, show the appropriate onboarding screen
+//                if hasCompletedOnboarding {
+//                    MainTabView()
+//                } else {
+                    
                     switch currentScreen {
                     case .onboarding:
                         OnboardingView {
-                            // Navigate to Onboard2View when Continue is tapped
                             currentScreen = .onboarding2
                         }
                     case .onboarding2:
-                        SecondOnboardingView()
-                        // The Onboard2View now handles setting hasCompletedOnboarding itself
-                        // No need for manual transition logic here
+//                        SecondOnboardingView()
+                        SecondOnboardingView(currentScreen: $currentScreen)
                     case .main:
                         MainTabView()
                     }
-                }
+//                }
             }
         }
         .modelContainer(for: [HeartRateSession.self, BpmRecord.self])
