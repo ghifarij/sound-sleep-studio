@@ -6,6 +6,7 @@
 //
 
 import Charts
+import Foundation
 import SwiftData
 import SwiftUI
 
@@ -15,6 +16,8 @@ enum AnalyticsRange: String, CaseIterable {
 }
 
 struct AnalyticsView: View {
+
+
     // today session predicate and query
     static var todayPredicate: Predicate<HeartRateSession> {
         let today = Calendar.current.startOfDay(for: Date())
@@ -58,7 +61,7 @@ struct AnalyticsView: View {
             .pickerStyle(.segmented)
 
             switch selectedRange {
-                
+
             //MARK: DAYILY ANAYLSIS PAGE
             case .daily:
                 if todaySessions.isEmpty {
@@ -142,10 +145,62 @@ struct AnalyticsView: View {
                     //                    .background(Color(.darkGray).opacity(0.6))
                     //                    .cornerRadius(12)
                 }
-            
+
             //MARK: WEEKLY PAGE
             case .weekly:
-                Text("2")
+                if todaySessions.isEmpty {
+                    Text("No data yet, please start to use app, thanks").frame(
+                        maxWidth: .infinity, alignment: .center)
+                } else {
+                    Text("RANGE")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+
+                    Text(
+                        "\(Utilities.getMaxMinBpm(sessions: weekSessions).min)–\(Utilities.getMaxMinBpm(sessions: weekSessions).max) BPM"
+                    )
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.secondary)
+
+                    Text(Utilities.formattedRangeText(from: weekSessions))
+                        .foregroundColor(.gray)
+                        .font(.subheadline)
+
+                    let calendar = Calendar.current
+                    let today = Date()
+
+                    let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+                    let weekEnd = calendar.date(byAdding: .day, value: 6, to: weekStart)!
+
+                    Chart {
+                        ForEach(weekSessions.sorted(by: { $0.startDate < $1.startDate })) { session in
+                            BarMark(
+                                x: .value("Date", session.startDate),
+                                yStart: .value("Min", session.minBpm ?? 0),
+                                yEnd: .value("Max", session.maxBpm ?? 0)
+                            )
+                            .foregroundStyle(.purple)
+                            .cornerRadius(4)
+                        }
+                    }
+                    .frame(height: 240)
+                    .chartXScale(domain: weekStart...weekEnd)
+                    .chartXAxis {
+                        AxisMarks(values: .stride(by: .day)) { value in
+                            AxisTick()
+                            AxisValueLabel(format: .dateTime.weekday(.abbreviated))
+                        }
+                    }
+                    .chartYScale(domain: 55...105)
+                    .chartPlotStyle { plot in
+                        plot
+                            .background(Color(.systemGray6).opacity(0.2))
+                            .cornerRadius(8)
+                    }
+
+
+                }
             }
         }
         .padding()
@@ -153,7 +208,9 @@ struct AnalyticsView: View {
         //        .preferredColorScheme(.dark)
 
     }
+
 }
+
 #Preview {
     AnalyticsView()
 }

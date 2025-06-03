@@ -31,6 +31,7 @@ class AudioService {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.prepareToPlay()
+            audioPlayer?.numberOfLoops = -1
             currentTrackName = trackName
         } catch {
             print("❌ Error loading audio: \(error)")
