@@ -20,10 +20,36 @@ class AudioService {
     var originalVolume: Float = 0.5
     var onPlaybackComplete: (() -> Void)?
 
-    init() {}
+    init() {
+        setupAudioSession()
+    }
+    
+    deinit {
+            cleanup()
+        }
+    
+    private func setupAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("❌ Failed to setup audio session: \(error)")
+        }
+    }
+    
+    private func cleanup() {
+        fadeOutTimer?.invalidate()
+        stopTimer?.invalidate()
+        audioPlayer?.stop()
+        audioPlayer = nil
+    }
 
     //Load the audio file
     func load(trackName: String, fileExtension: String = "mp3") {
+        if currentTrackName == trackName && audioPlayer != nil {
+            return
+        }
+        
         guard
             let url = Bundle.main.url(
                 forResource: trackName, withExtension: fileExtension)
@@ -45,21 +71,25 @@ class AudioService {
     
     // Play audio with timed stop and fade out
     func playWithTimedStop() {
-        audioPlayer?.play()
+        guard let player = audioPlayer else { return }
+        
+        player.play()
         isPlaying = true
-
         scheduleStopWithFadeOut()
     }
     
     private func scheduleStopWithFadeOut() {
+        // Cancel existing timers
         fadeOutTimer?.invalidate()
         stopTimer?.invalidate()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) { [weak self] in
+        // Schedule fade out after 30 seconds
+        fadeOutTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false) { [weak self] _ in
             self?.startFadeOut()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 60.0) { [weak self] in
+        // Schedule stop after 60 seconds total
+        stopTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { [weak self] _ in
             self?.stop()
         }
     }
@@ -80,12 +110,17 @@ class AudioService {
             
             let newVolume = max(0, self.volume - volumeDecrement)
             self.setVolume(newVolume)
+            
+            if newVolume <= 0 {
+                timer.invalidate()
+            }
         }
     }
     
     //play audio
     func play() {
-        audioPlayer?.play()
+        guard let player = audioPlayer else { return }
+        player.play()
         isPlaying = true
     }
     
@@ -103,7 +138,11 @@ class AudioService {
         audioPlayer?.currentTime = 0
         isPlaying = false
         setVolume(originalVolume)
-        onPlaybackComplete?() 
+        onPlaybackComplete?()
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.onPlaybackComplete?()
+        }
     }
 
     //volume control

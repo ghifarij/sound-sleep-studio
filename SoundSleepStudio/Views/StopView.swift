@@ -11,11 +11,13 @@ struct StopView: View {
     @State private var minutes: Int = 0
     @State private var seconds: Int = 0
     @State private var timer: Timer? = nil
-    @State public var bpmManager: HeartRateController
-    @State public var avPlayer1: AudioService
-    @State public var avPlayer2: AudioService
     @State private var player1Stopped = false
     @State private var player2Stopped = false
+    @State private var hasSetupCompletionHandlers = false
+    
+    public var bpmManager: HeartRateController
+    public var avPlayer1: AudioService
+    public var avPlayer2: AudioService
     var dismiss: () -> Void
     
     var body: some View {
@@ -54,65 +56,87 @@ struct StopView: View {
                     .foregroundStyle(Color.brandPurple)
                 }
             }
-            .interactiveDismissDisabled() // Prevent swipe to dismiss
+            .interactiveDismissDisabled()
             .onAppear {
-                startTimer()
-                setupCompletionHandlers()
+                setupView()
             }
             .onDisappear {
-                stopTimer()
+                cleanup()
             }
         }
-    
+        
+        // MARK: - Private Methods
+        
+        private func setupView() {
+            startTimer()
+            
+            // Only setup completion handlers once
+            if !hasSetupCompletionHandlers {
+                setupCompletionHandlers()
+                hasSetupCompletionHandlers = true
+            }
+        }
+        
+        private func cleanup() {
+            timer?.invalidate()
+            timer = nil
+        }
+        
     private func setupCompletionHandlers() {
-            avPlayer1.onPlaybackComplete = {
+        avPlayer1.onPlaybackComplete = {
+            DispatchQueue.main.async {
                 player1Stopped = true
                 checkIfBothPlayersStopped()
             }
-            
-            avPlayer2.onPlaybackComplete = {
+        }
+        
+        avPlayer2.onPlaybackComplete = {
+            DispatchQueue.main.async {
                 player2Stopped = true
                 checkIfBothPlayersStopped()
             }
         }
-        
-    private func checkIfBothPlayersStopped() {
-        if player1Stopped && player2Stopped {
-            DispatchQueue.main.async {
+    }
+            
+        private func checkIfBothPlayersStopped() {
+            if player1Stopped && player2Stopped {
                 stopAndDismiss()
             }
         }
-    }
-    
-    private func startTimer() {
-        // Reset the timer values when starting
-        minutes = 0
-        seconds = 0
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            if seconds < 59 {
-                seconds += 1
-            } else {
-                minutes += 1
-                seconds = 0
+        private func startTimer() {
+            // Reset the timer values when starting
+            minutes = 0
+            seconds = 0
+            
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                if seconds < 59 {
+                    seconds += 1
+                } else {
+                    minutes += 1
+                    seconds = 0
+                }
+            }
+        }
+        
+        private func stopAndDismiss() {
+            cleanup()
+            
+            // Clear completion handlers to prevent retain cycles
+            avPlayer1.onPlaybackComplete = nil
+            avPlayer2.onPlaybackComplete = nil
+            
+            // Stop audio and heart rate monitoring
+            avPlayer1.stop()
+            avPlayer2.stop()
+            bpmManager.stopHeartRate()
+            
+            // Dismiss with small delay to ensure cleanup completes
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                dismiss()
             }
         }
     }
-    
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    private func stopAndDismiss() {
-        stopTimer()
-        avPlayer1.stop()
-        avPlayer2.stop()
-        bpmManager.stopHeartRate()
-        dismiss()
-    }
-}
-
 
 struct BreathingAnimationView: View {
     @State private var isBreathingIn = false
