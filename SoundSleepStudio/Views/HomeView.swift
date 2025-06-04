@@ -11,8 +11,8 @@ import SwiftData
 struct HomeView: View {
     @Environment(\.modelContext) private var context
     @State private var isPreviewPlaying = false
-    @State private var foregroundSelectedSound = "Piano"
-    @State private var backgroundSelectedSound = "Rain"
+    @State private var foregroundSelectedSound = "Sound 1"
+    @State private var backgroundSelectedSound = "Sound 2"
     @State private var foregroundVolume = 0.5
     @State private var backgroundVolume = 0.5
     @State private var navigateToStopView = false
@@ -20,8 +20,8 @@ struct HomeView: View {
     @State public var avPlayer2 = AudioService()
     @StateObject public var bpmManager = HeartRateController()
 
-    let foregroundSounds = ["Piano", "Pads", "Breathing Voice"]
-    let backgroundSounds = ["Rain", "Waves", "Forest"]
+    let foregroundSounds = ["Sound 1", "Sound 2", "Sound 3"]
+    let backgroundSounds = ["Sound 1", "Sound 2", "Sound 3"]
     
     private func updateVolumes() {
             avPlayer1.setVolume(Float(foregroundVolume))

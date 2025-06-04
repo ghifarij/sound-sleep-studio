@@ -79,7 +79,7 @@ struct StopView: View {
     private func checkIfBothPlayersStopped() {
         if player1Stopped && player2Stopped {
             DispatchQueue.main.async {
-                dismiss()
+                stopAndDismiss()
             }
         }
     }

@@ -67,8 +67,9 @@ class AudioService {
     private func startFadeOut() {
         originalVolume = volume
         
-        let fadeInterval = 0.5
-        let numberOfSteps = 60
+        let fadeDuration: Double = 30.0
+        let fadeInterval = 0.1
+        let numberOfSteps = Int(fadeDuration / fadeInterval)
         let volumeDecrement = volume / Float(numberOfSteps)
         
         fadeOutTimer = Timer.scheduledTimer(withTimeInterval: fadeInterval, repeats: true) { [weak self] timer in
@@ -79,10 +80,6 @@ class AudioService {
             
             let newVolume = max(0, self.volume - volumeDecrement)
             self.setVolume(newVolume)
-            
-            if self.volume <= 0 {
-                timer.invalidate()
-            }
         }
     }
     
