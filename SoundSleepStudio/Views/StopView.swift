@@ -14,6 +14,8 @@ struct StopView: View {
     @State public var bpmManager: HeartRateController
     @State public var avPlayer1: AudioService
     @State public var avPlayer2: AudioService
+    @State private var player1Stopped = false
+    @State private var player2Stopped = false
     var dismiss: () -> Void
     
     var body: some View {
@@ -55,11 +57,32 @@ struct StopView: View {
             .interactiveDismissDisabled() // Prevent swipe to dismiss
             .onAppear {
                 startTimer()
+                setupCompletionHandlers()
             }
             .onDisappear {
                 stopTimer()
             }
         }
+    
+    private func setupCompletionHandlers() {
+            avPlayer1.onPlaybackComplete = {
+                player1Stopped = true
+                checkIfBothPlayersStopped()
+            }
+            
+            avPlayer2.onPlaybackComplete = {
+                player2Stopped = true
+                checkIfBothPlayersStopped()
+            }
+        }
+        
+    private func checkIfBothPlayersStopped() {
+        if player1Stopped && player2Stopped {
+            DispatchQueue.main.async {
+                dismiss()
+            }
+        }
+    }
     
     private func startTimer() {
         // Reset the timer values when starting

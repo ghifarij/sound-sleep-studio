@@ -54,7 +54,7 @@ struct SecondOnboardingView: View {
 
             // Description
             Text(
-                "Allow Sound Sleep to access your heart rate through your Apple Watch"
+                "Allow Sound Sleep to access your heart rate through your Apple Watch."
             )
             .font(.body)
             .multilineTextAlignment(.center)

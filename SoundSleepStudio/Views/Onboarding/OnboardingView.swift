@@ -66,13 +66,13 @@ struct OnboardingView: View {
                 VStack(spacing: 32) {
                     FeatureRow(
                         systemIconName: "music.note",
-                        title: "Audio stops based on heart rate",
-                        description: "Sound Sleep uses your heart rate to play audio that stops automatically when you reach a restful state"
+                        title: "Heart-Responsive Audio",
+                        description: "Sound Sleep uses your heart rate to play audio that stops automatically when you reach a restful state."
                     )
 
                     FeatureRow(
                         systemIconName: "heart.fill",
-                        title: "Real-time heart rate tracking",
+                        title: "Real-time Heart Rate Tracking",
                         description: "Sound Sleep monitors your heart rate in real-time to detect your resting moment accurately"
                     )
                 }

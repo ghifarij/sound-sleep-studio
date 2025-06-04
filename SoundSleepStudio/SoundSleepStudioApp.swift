@@ -106,6 +106,6 @@ struct MainTabView: View {
                 .tag(1)
         
         }
-        .accentColor(.blue)
+        .accentColor(Color.brandPurple)
     }
 }

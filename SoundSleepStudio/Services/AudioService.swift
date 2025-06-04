@@ -18,6 +18,7 @@ class AudioService {
     var currentRate: Float = 1.0
     var volume: Float = 0.5
     var originalVolume: Float = 0.5
+    var onPlaybackComplete: (() -> Void)?
 
     init() {}
 
@@ -105,6 +106,7 @@ class AudioService {
         audioPlayer?.currentTime = 0
         isPlaying = false
         setVolume(originalVolume)
+        onPlaybackComplete?() 
     }
 
     //volume control
